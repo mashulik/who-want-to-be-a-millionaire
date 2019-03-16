@@ -96,6 +96,10 @@ RSpec.describe Game, type: :model do
       it ':money' do
         expect(game_w_questions.status).to eq(:money)
       end
+
+      it 'returns current game question' do
+        expect(game_w_questions.current_game_question).to eq game_w_questions.game_questions.first
+      end
     end
   end
 end
