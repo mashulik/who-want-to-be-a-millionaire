@@ -22,7 +22,7 @@ class Game < ActiveRecord::Base
 
   # Текущий уровень сложности вопроса: число от 0 до 14, это поле не можеть быть
   # nil.
-  validates :current_level, numericality: {only_integer: true}, allow_nil: false
+  validates :current_level, numericality: { only_integer: true }, allow_nil: false
 
   # Выигрыш игрока — целое число, лежащее от нуля до максимального приза за игру
   validates :prize, presence: true, numericality: {
