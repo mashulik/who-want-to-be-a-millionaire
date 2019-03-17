@@ -111,9 +111,14 @@ RSpec.describe Game, type: :model do
       let(:q) { @game_w_questions.current_game_question }
       it 'answer is correct' do
         expect(@game_w_questions.answer_current_question!(q.correct_answer_key)).to be true
+        expect(@game_w_questions.finished?).to be false
+        expect(@game_w_questions.status).to eq :in_progress
       end
       it 'answer is wrong' do
         expect(@game_w_questions.answer_current_question!('a')).to be false
+        expect(@game_w_questions.finished?).to be true
+        expect(@game_w_questions.status).to eq :fail
+
       end
       it 'question is last' do
         @game_w_questions.current_level = Question::QUESTION_LEVELS.max
@@ -125,6 +130,7 @@ RSpec.describe Game, type: :model do
         @game_w_questions.created_at = 1.hour.ago
         expect(@game_w_questions.answer_current_question!(q.correct_answer_key)).to be false
         expect(@game_w_questions.status).to eq :timeout
+        expect(@game_w_questions.finished?).to be true
       end
     end
   end
