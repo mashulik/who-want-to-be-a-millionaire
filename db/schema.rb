@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610145015) do
+ActiveRecord::Schema.define(version: 20190319153034) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "game_questions", force: :cascade do |t|
     t.integer  "game_id"
@@ -22,22 +25,26 @@ ActiveRecord::Schema.define(version: 20160610145015) do
     t.integer  "d"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.text     "help_hash"
   end
 
-  add_index "game_questions", ["game_id"], name: "index_game_questions_on_game_id"
-  add_index "game_questions", ["question_id"], name: "index_game_questions_on_question_id"
+  add_index "game_questions", ["game_id"], name: "index_game_questions_on_game_id", using: :btree
+  add_index "game_questions", ["question_id"], name: "index_game_questions_on_question_id", using: :btree
 
   create_table "games", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "finished_at"
-    t.integer  "current_level", default: 0, null: false
+    t.integer  "current_level",      default: 0,     null: false
     t.boolean  "is_failed"
-    t.integer  "prize",         default: 0, null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "prize",              default: 0,     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "fifty_fifty_used",   default: false, null: false
+    t.boolean  "audience_help_used", default: false, null: false
+    t.boolean  "friend_call_used",   default: false, null: false
   end
 
-  add_index "games", ["user_id"], name: "index_games_on_user_id"
+  add_index "games", ["user_id"], name: "index_games_on_user_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.integer  "level",      null: false
@@ -50,7 +57,7 @@ ActiveRecord::Schema.define(version: 20160610145015) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "questions", ["level"], name: "index_questions_on_level"
+  add_index "questions", ["level"], name: "index_questions_on_level", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                                   null: false
@@ -65,7 +72,7 @@ ActiveRecord::Schema.define(version: 20160610145015) do
     t.datetime "remember_created_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
