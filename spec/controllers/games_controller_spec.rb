@@ -66,7 +66,6 @@ RSpec.describe GamesController, type: :controller do
     end
 
     it 'answers wrong' do
-      
       wrong = (%w[a b c d] - [game_w_questions.current_game_question.correct_answer_key]).first
       put :answer, id: game_w_questions.id, letter: wrong
       game = assigns(:game)

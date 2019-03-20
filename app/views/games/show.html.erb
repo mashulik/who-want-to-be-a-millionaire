@@ -10,9 +10,16 @@
         <h2><%= @game_question.text %></h2>
       </div>
 
+      <div class="buffer-top-lg">
+        <%# Выводим шаблон с кнопками для подсказок и информацией о подсказках %>
+        <%= render partial: 'help', object: @game_question.help_hash, locals: {game: @game} %>
+      </div>
+
       <div class="row">
       <%# Выводим варианты ответов %>
         <% @game_question.variants.each do |letter, variant| %>
+          <% help = @game_question.help_hash %>
+          <% if !help.key?(:fifty_fifty) || help[:fifty_fifty].include?(letter) %>
           <div class="col-md-6 buffer-top">
             <%= link_to content_tag(:span, letter.upcase, class: 'variant') + ": #{variant}",
                         answer_game_path(@game, letter: letter),
@@ -20,6 +27,7 @@
                         class: 'btn btn-block btn-default btn-variant'
             %>
           </div>
+          <% end %>
         <% end %>
       </div>
     </div>
