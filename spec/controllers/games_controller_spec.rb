@@ -66,13 +66,14 @@ RSpec.describe GamesController, type: :controller do
     end
 
     it 'answers wrong' do
-
-      wrong = %w[a b c d].find { |a| a != game_w_questions.current_game_question.correct_answer_key }
+      
+      wrong = (%w[a b c d] - [game_w_questions.current_game_question.correct_answer_key]).first
       put :answer, id: game_w_questions.id, letter: wrong
       game = assigns(:game)
 
       expect(game.finished?).to be true
       expect(game.current_level).to be_zero
+      expect(game.status).to eq :fail
       expect(response).to redirect_to(user_path(user))
       expect(flash[:alert]).to be
     end
