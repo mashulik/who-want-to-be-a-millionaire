@@ -24,42 +24,46 @@ RSpec.describe GamesController, type: :controller do
     it 'can not create new game' do
       generate_questions(15)
       post :create
-      game = assigns(:game)
 
-      expect(game).to be_nil
       expect(response.status).not_to eq(200)
       expect(response).to redirect_to(new_user_session_path)
       expect(flash[:alert]).to be
+
+      expect(game_w_questions.current_level).to be_zero
+      expect(game_w_questions.status).to eq :in_progress
     end
 
-    it 'can not gave answer' do
+    it 'can not give answer' do
       put :answer, id: game_w_questions.id, letter: game_w_questions.current_game_question.correct_answer_key
-      game = assigns(:game)
 
-      expect(game).to be_nil
       expect(response.status).not_to eq 200
       expect(response).to redirect_to(new_user_session_path)
       expect(flash[:alert]).to be
+
+      expect(game_w_questions.current_level).to be_zero
+      expect(game_w_questions.status).to eq :in_progress
     end
 
     it 'can not take money' do
       put :take_money, id: game_w_questions.id
-      game = assigns(:game)
 
-      expect(game).to be_nil
       expect(response.status).not_to eq 200
       expect(response).to redirect_to(new_user_session_path)
       expect(flash[:alert]).to be
+
+      expect(game_w_questions.current_level).to be_zero
+      expect(game_w_questions.status).to eq :in_progress
     end
 
     it 'can not help' do
       put :help, id: game_w_questions.id
-      game = assigns(:game)
 
-      expect(game).to be_nil
       expect(response.status).not_to eq 200
       expect(response).to redirect_to(new_user_session_path)
       expect(flash[:alert]).to be
+
+      expect(game_w_questions.current_level).to be_zero
+      expect(game_w_questions.status).to eq :in_progress
     end
   end
 
