@@ -79,6 +79,10 @@ class GameQuestion < ActiveRecord::Base
     variants[correct_answer_key]
   end
 
+  def apply_help!(help_type)
+    method("add_#{help_type}").call if %i[fifty_fifty audience_help friend_call].include?(help_type)
+  end
+
   # Добавляем в help_hash по ключю fifty_fifty — массив из двух вариантов:
   # правильный и случайный и сохраняем объект.
   def add_fifty_fifty
