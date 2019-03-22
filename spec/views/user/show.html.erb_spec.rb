@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe 'users/show', type: :view do
   context 'watching user page' do
     before(:each) do
+      @games = [FactoryBot.build_stubbed(:game, id: 1, created_at: Time.now, current_level: 7)]
       assign(:user, FactoryBot.build_stubbed(:user, name: 'Mariya'))
-      assign(:games, [FactoryBot.build_stubbed(:game, id: 1, created_at: Time.now, current_level: 7)])
+      assign(:games, @games)
       render
     end
 
@@ -17,16 +18,17 @@ RSpec.describe 'users/show', type: :view do
     end
 
     it 'renders fragments of game' do
-      assert_template partial: 'users/_game'
+      assert_template partial: 'users/_game', count: @games.count
     end
   end
 
   context 'user watching own page' do
     before(:each) do
       user = FactoryBot.create(:user, name: 'Mariya')
-      sign_in user
+      @games = [FactoryBot.build_stubbed(:game, id: 1, created_at: Time.now, current_level: 7)]
+      allow(controller).to receive(:current_user) { user }
       assign(:user, user)
-      assign(:games, [FactoryBot.build_stubbed(:game, id: 1, created_at: Time.now, current_level: 7)])
+      assign(:games, @games)
 
       render
     end
@@ -40,7 +42,7 @@ RSpec.describe 'users/show', type: :view do
     end
 
     it 'renders fragments of game' do
-      assert_template partial: 'users/_game'
+      assert_template partial: 'users/_game', count: @games.count
     end
   end
 end
