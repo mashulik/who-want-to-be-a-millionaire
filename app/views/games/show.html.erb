@@ -12,7 +12,7 @@
 
       <div class="buffer-top-lg">
         <%# Выводим шаблон с кнопками для подсказок и информацией о подсказках %>
-        <%= render partial: 'help', object: @game_question.help_hash, locals: {game: @game} %>
+        <%= render partial: 'help', locals: {game: @game, help: @game_question.help_hash} %>
       </div>
 
       <div class="row">
