@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :question do
     sequence(:text) { |n| "В каком году была космичесая одиссея #{n}?" }
 

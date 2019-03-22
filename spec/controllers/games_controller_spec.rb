@@ -3,11 +3,11 @@ require 'support/my_spec_helper'
 
 RSpec.describe GamesController, type: :controller do
   # обычный пользователь
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
   # админ
-  let(:admin) { FactoryGirl.create(:user, is_admin: true) }
+  let(:admin) { FactoryBot.create(:user, is_admin: true) }
   # игра с прописанными игровыми вопросами
-  let(:game_w_questions) { FactoryGirl.create(:game_with_questions, user: user) }
+  let(:game_w_questions) { FactoryBot.create(:game_with_questions, user: user) }
 
   # группа тестов для незалогиненного юзера (Анонимус)
   context 'Anon' do
@@ -124,7 +124,7 @@ RSpec.describe GamesController, type: :controller do
 
     it '#show alien game' do
       # создаем новую игру, юзер не прописан, будет создан фабрикой новый
-      alien_game = FactoryGirl.create(:game_with_questions)
+      alien_game = FactoryBot.create(:game_with_questions)
       # пробуем зайти на эту игру текущий залогиненным user
       get :show, id: alien_game.id
 

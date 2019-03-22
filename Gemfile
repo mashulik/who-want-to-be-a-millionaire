@@ -18,7 +18,7 @@ group :development, :test do
   gem 'dotenv-rails'
 
   gem 'rspec-rails', '~> 3.4'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'shoulda-matchers'
 end
 

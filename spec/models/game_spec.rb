@@ -3,10 +3,10 @@ require 'support/my_spec_helper'
 
 RSpec.describe Game, type: :model do
 
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   before(:each) do
-    @game_w_questions = FactoryGirl.create(:game_with_questions, user: user)
+    @game_w_questions = FactoryBot.create(:game_with_questions, user: user)
   end
 
   context 'Game Factory' do
