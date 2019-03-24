@@ -32,7 +32,7 @@ RSpec.feature 'USER creates a game', type: :feature do
 
     # Кликаем по ссылке "Новая игра"
     click_link 'Новая игра'
-    
+
     # Ожидаем, что на экране вопрос игры (самый простой)
     expect(page).to have_content 'Когда была куликовская битва номер 0?'
 
