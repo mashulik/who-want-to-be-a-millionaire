@@ -25,6 +25,8 @@ group :development, :test do
   gem 'launchy'
 end
 
+gem 'capybara-screenshot', :group => :test
+
 group :production do
   # гем, улучшающий вывод логов на Heroku
   # https://devcenter.heroku.com/articles/getting-started-with-rails4#heroku-gems
