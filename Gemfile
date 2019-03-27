@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.2.10'
-gem 'pg'
 
 gem 'devise', '~> 4.6.1'
 gem 'devise-i18n'
@@ -28,6 +27,7 @@ end
 gem 'capybara-screenshot', :group => :test
 
 group :production do
+  gem 'pg'
   # гем, улучшающий вывод логов на Heroku
   # https://devcenter.heroku.com/articles/getting-started-with-rails4#heroku-gems
   gem 'rails_12factor'
